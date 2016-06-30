@@ -1,0 +1,60 @@
+// Place all the styles related to the Users controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.wrapper{
+  width: 100%;
+}
+.main{
+  width: 70%;
+  margin: 0px auto;
+}
+.register, .login{
+  display: inline-block;
+}
+.register{
+  width: 46%;
+  margin-right: 20px;
+}
+fieldset{
+  width: 85%;
+  margin: 0px auto;
+}
+span{
+  color: red;
+}
+.welcome, .menu{
+  display: inline-block;
+  width: 49%;
+}
+.menu{
+  text-align: right;
+}
+.group_list, .new_group{
+  display: inline-block;
+  vertical-align: top;
+}
+.group_list{
+  width: 60%;
+}
+.new_group{
+  width: 38%;
+}
+.group_list table{
+  margin-bottom: 20px;
+}
+h4{
+  margin: 0px;
+}
+.group_list input{
+  margin: 0px;
+}
+.group_members{
+  margin-top: 30px;
+}
+h3{
+  margin: 0px;
+}
+.title, .delete{
+  display: inline-block;
+}

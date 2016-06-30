@@ -1,0 +1,54 @@
+<div class='wrapper'>
+  <div class='main'>
+    <div class='top'>
+      <div class='welcome'>
+        <h1>Hi, <%= session[:user_name] %>!</h1>
+      </div>
+      <div class='menu'>
+        <a href='/groups'>Dashboard</a>&emsp;
+        <a href='/sessions' data-method='delete'>Logout</a>
+      </div>
+    </div>
+    <div class='group_summary'>
+      <table>
+        <tr>
+          <td>
+            <h3><%= @group.name %>&emsp;</h3>
+          </td>
+          <td>
+            <% if @group.is_member?(session[:user_id]) %>
+              <a href= '/members/<%= @group.id %>' data-method='delete'><button>Leave Group</button></a>
+            <% else %>
+              <form action='/members' method='post'>
+                <input type='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'>
+                <input type='hidden' name='member[user_id]' value='<%= session[:user_id] %>'>
+                <input type='hidden' name='member[group_id]' value='<%= @group.id %>'>
+                <input type='submit' value='Join Group'>
+              </form>
+            <% end %>
+          </td>
+        </tr>
+      </table>
+      <table>
+        <tr>
+          <td width='20'></td><td><%= @group.description %></td>
+        </tr>
+      </table>
+    </div>
+    <div class='group_members'>
+      <table>
+        <tr>
+          <td colspan='2'><b>Created By: <%= @group.user.full_name %></b></td>
+        </tr>
+        <tr>
+          <td colspan='2'><b>Members:</b></td>
+        </tr>
+        <% @members.each do |m| %>
+          <tr>
+            <td width='20'></td><td><%= m.user.full_name %></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</div>

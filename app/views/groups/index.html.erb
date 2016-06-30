@@ -1,0 +1,66 @@
+<div class='wrapper'>
+  <div class='main'>
+    <div class='top'>
+      <div class='welcome'>
+        <h1>Hi, <%= session[:user_name] %>!</h1>
+      </div>
+      <div class='menu'>
+        <a href='/sessions' data-method='delete'>Logout</a>
+      </div>
+    </div>
+    <div class='group_list'>
+      <h3>Here are the organizations you may join:</h3><br><br>
+      <% @groups.each do |g| %>
+        <table>
+          <tr>
+            <td colspan='2'>
+              <div class='title'>
+                <a href='/groups/<%= g.id %>'><h4><%= g.name %></h4></a>
+              </div>
+              <% if g.user_id == session[:user_id] %>
+                <div class='delete'>
+                  &nbsp;&nbsp;<a href= '/groups/<%= g.id %>' data-method='delete'><button>Delete Group</button></a>
+                </div>
+              <% end %>
+            </td>
+          </tr>
+          <tr>
+            <td width='20'></td><td>Members: <%= g.member_count %></td>
+          </tr>
+          <tr>
+            <td width='20'></td><td><%= g.description %></td>
+          </tr>
+        </table>
+      <% end %>
+    </div>
+    <div class='new_group'>
+      <fieldset>
+        <legend>Create a new organization</legend>
+        <form action='/groups' method='post'>
+          <input type='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'>
+          <input type='hidden' name='group[user_id]' value='<%= session[:user_id] %>'>
+          <table>
+            <tr>
+              <td>Org. Name:</td><td><input type='text' name='group[name]'></td>
+            </tr>
+            <tr>
+              <td>Description:</td><td><textarea name='group[description]' cols='30' rows='10'></textarea></td>
+            </tr>
+            <tr>
+              <td colspan='2'><input type='submit' value='Create'></td>
+            </tr>
+            <% if flash[:errors] %>
+              <tr>
+                <td colspan='2'>
+                  <% flash[:errors].each do |error| %>
+                    <span><%= error %></span><br>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </table>
+        </form>
+      </fieldset>
+    </div>
+  </div>
+</div>
